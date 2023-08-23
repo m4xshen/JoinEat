@@ -89,6 +89,7 @@ export default function Home() {
         options={options}
         setOptions={setOptions}
         setShopName={setShopName}
+        setActiveEventId={setActiveEventId}
       />
 
       <div className={styles.groups}>

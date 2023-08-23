@@ -3,7 +3,13 @@ import styles from "@/styles/map.module.scss";
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
 
-export default function Map({ children, center, setOptions, setShopName }) {
+export default function Map({
+  children,
+  center,
+  setOptions,
+  setShopName,
+  setActiveEventId,
+}) {
   const userMarker = useRef(null);
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
@@ -22,6 +28,7 @@ export default function Map({ children, center, setOptions, setShopName }) {
     mapInstance.current.addListener("click", (e) => {
       const { placeId } = e;
       if (!placeId) {
+        setActiveEventId(null);
         setOptions({ map: null });
 
         return;

@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  height: 100%;
+  overflow: hidden;
 
   .titleBar {
     display: flex;
@@ -35,6 +37,7 @@
     border-radius: 50%;
     width: 5rem;
     height: 5rem;
+    flex-shrink: 0;
 
     .image {
       object-fit: cover;
@@ -132,9 +135,12 @@
   }
 
   .groups {
+    width: 100%;
+    overflow-y: auto;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
   }
 }

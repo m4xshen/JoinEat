@@ -5,6 +5,7 @@ export default function GroupsSearchResult({
   isButtonDisable,
   groupsSearchResult,
 }) {
+  console.log("777");
   return (
     <div>
       {groupsSearchResult !== null &&

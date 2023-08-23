@@ -21,7 +21,8 @@ export default function ProfilePage({ params }) {
   const introductionRef = useRef(null);
   const tagsRef = useRef(null);
   const profile = useProfile(params.id);
-  const events = useHistory(params.id, 0, 0);
+  const history = useHistory(params.id, 0, 0);
+  const events = history?.events;
   const updateProfile = useUpdateProfile();
   const { mutate } = useSWRConfig();
   const [activeEventId, setActiveEventId] = useState(null);
@@ -57,7 +58,12 @@ export default function ProfilePage({ params }) {
   return (
     <div className={styles.page}>
       {showModal && (
-        <Modal userId={profile?.id} file={file} setShowModal={setShowModal} />
+        <Modal
+          userId={profile?.id}
+          file={file}
+          setFile={setFile}
+          setShowModal={setShowModal}
+        />
       )}
       <div className={styles.titleBar}>
         <Link href="/" className={styles.button}>
@@ -162,11 +168,11 @@ export default function ProfilePage({ params }) {
       )}
       <div className={styles.infoBar}>
         <div className={styles.info}>
-          <div className={styles.number}>13</div>
+          <div className={styles.number}>{history?.participant_count}</div>
           <div className={styles.text}>參加聚餐</div>
         </div>
         <div className={styles.info}>
-          <div className={styles.number}>2</div>
+          <div className={styles.number}>{history?.host_count}</div>
           <div className={styles.text}>發起聚餐</div>
         </div>
       </div>

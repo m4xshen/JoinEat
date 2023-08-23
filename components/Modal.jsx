@@ -9,7 +9,7 @@ import styles from "@/styles/modal.module.scss";
 import Cancel from "./Icons/Cancel";
 import useUpdatePicture from "@/hooks/useUpdatePicture";
 
-export default function Modal({ userId, file, setShowModal }) {
+export default function Modal({ userId, file, setFile, setShowModal }) {
   const updatePicture = useUpdatePicture();
   const editor = useRef(null);
   const { mutate } = useSWRConfig();
@@ -21,7 +21,10 @@ export default function Modal({ userId, file, setShowModal }) {
         <button
           type="button"
           className={styles.cancel}
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            setShowModal(false);
+            setFile(null);
+          }}
         >
           <Cancel />
         </button>
@@ -59,12 +62,14 @@ export default function Modal({ userId, file, setShowModal }) {
                   confirmButtonText: "OK",
                 });
                 setShowModal(false);
+                setFile(null);
                 return;
               }
 
               const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
               mutate(`${apiDomain}/users/${userId}`);
               setShowModal(false);
+              setFile(null);
             });
           }}
         >

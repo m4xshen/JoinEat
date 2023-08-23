@@ -26,5 +26,5 @@ export default function useHistory(userId, latitude, longitude) {
     return null;
   }
 
-  return data?.data?.events;
+  return data?.data;
 }

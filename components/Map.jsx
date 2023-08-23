@@ -50,6 +50,7 @@ export default function Map({
             const lng = place.geometry.location.lng();
             setOptions({ position: { lat, lng }, map: mapInstance.current });
             setShopName(place.name);
+            console.log("place.name", place.name);
             console.log(`${place.name}\n(${lat}, ${lng})`);
           } else {
             console.log("請點擊餐廳");
@@ -78,6 +79,7 @@ export default function Map({
       <SearchBar
         center={center}
         setOptions={setOptions}
+        setShopName={setShopName}
         mapInstance={mapInstance}
       />
       <NavBar />

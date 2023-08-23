@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Marker(options) {
+export default function Marker({ options, setShopName }) {
   const [marker, setMarker] = useState();
 
   useEffect(() => {
@@ -17,6 +17,7 @@ export default function Marker(options) {
 
   useEffect(() => {
     if (marker) {
+      console.log(options);
       marker.setOptions(options);
     }
   }, [marker, options]);

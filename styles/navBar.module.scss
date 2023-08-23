@@ -7,13 +7,13 @@
   top: 15px;
   z-index: 999;
   cursor: pointer;
+  flex-shrink: 0;
 
   background-color: white;
   border: 1px solid #d0d0d0;
   border-radius: 50%;
   width: 30px;
   height: 30px;
-
   .profileIcon {
     background-color: black;
     border-radius: 50%;

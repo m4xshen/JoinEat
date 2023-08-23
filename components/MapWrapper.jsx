@@ -16,9 +16,6 @@ export default function MapWrapper({
   setShopName,
   setActiveEventId,
 }) {
-  // const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  // console.log(center)
-
   function success(pos) {
     setCenter({
       lat: pos.coords.latitude,
@@ -59,7 +56,7 @@ export default function MapWrapper({
         setShopName={setShopName}
         setActiveEventId={setActiveEventId}
       >
-        <Marker options={options} />
+        <Marker options={options} setShopName={setShopName} />
       </Map>
     </Wrapper>
   );

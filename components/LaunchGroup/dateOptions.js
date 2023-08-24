@@ -10,3 +10,8 @@ export const daysInMonth = (month) => {
   return new Date(currentYear, month, 0).getDate();
 };
 export const nowYear = new Date().getFullYear();
+export function roundUpToNearestMultipleOf5(number) {
+  const remainder = number % 5;
+  const roundedNumber = remainder === 0 ? number : number + (5 - remainder);
+  return roundedNumber < 10 ? `0${roundedNumber}` : `${roundedNumber}`;
+}

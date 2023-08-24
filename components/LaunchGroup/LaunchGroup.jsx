@@ -11,7 +11,12 @@ import EventName from "./EventName";
 import styles from "../../styles/launchGroup.module.scss";
 import Cancel from "../Icons/Cancel";
 import { hourOptions, minuteOptions } from "./timeOptions";
-import { nowYear, monthOptions, daysInMonth } from "./dateOptions";
+import {
+  nowYear,
+  roundUpToNearestMultipleOf5,
+  monthOptions,
+  daysInMonth,
+} from "./dateOptions";
 
 export default function LaunchGroup({
   shop_name,
@@ -19,18 +24,21 @@ export default function LaunchGroup({
   longitude,
   setOpenGroup,
 }) {
+  const today = new Date();
+  const nowMintues = today.getMinutes();
   const access_token = getCookie("access_token");
   const isButtonDisable = true;
   const [isLaunch, setIsLaunch] = useState(false);
   const [event_name, setEventName] = useState("");
   const [is_public, setIsPublic] = useState(true);
   const [year, setYear] = useState(nowYear);
-  const [month, setMonth] = useState(monthOptions[0]);
-  const [date, setDate] = useState(1);
-  const [hour, setHour] = useState(hourOptions[0]);
-  const [minute, setMinute] = useState(minuteOptions[0]);
-  const [people_limit, setPeopleLimit] = useState(1);
+  const [month, setMonth] = useState(today.getMonth() + 1);
+  const [date, setDate] = useState(today.getDate());
+  const [hour, setHour] = useState(today.getHours());
+  const [minute, setMinute] = useState(roundUpToNearestMultipleOf5(nowMintues));
+  const [people_limit, setPeopleLimit] = useState(2);
   const appointment_time = { year, month, date, hour, minute };
+  const eventTime = { month, date, hour, minute };
 
   const handleClickPublic = () => {
     setIsPublic(!is_public);
@@ -89,6 +97,10 @@ export default function LaunchGroup({
         isButtonDisable={isButtonDisable}
         shop_name={shop_name}
         eventName={event_name}
+        eventTime={eventTime}
+        people_joined={1}
+        // eventDistance={year}
+        people_limit={people_limit}
       />
       <EventName eventName={event_name} callback={handleEventName} />
       <Time

@@ -122,11 +122,13 @@ export default function ProfilePage({ params }) {
             ref={introductionRef}
             defaultValue={profile.introduction}
             className={styles.editing}
+            placeholder="自我介紹"
           />
           <textarea
             ref={tagsRef}
             defaultValue={profile.tags}
             className={styles.editing}
+            placeholder="tags: 用逗號區隔"
           />
           <div className={styles.buttonWrapper}>
             <button

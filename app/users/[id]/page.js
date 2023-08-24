@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { getCookie } from "cookies-next";
 import { useSWRConfig } from "swr";
 
+import axios from "axios";
 import styles from "@/styles/user.module.scss";
 import Edit from "@/components/Icons/Edit";
 import LeftArrow from "@/components/Icons/LeftArrow";
@@ -30,6 +31,7 @@ export default function ProfilePage({ params }) {
   const [showModal, setShowModal] = useState(false);
   const inputRef = useRef(null);
   const [file, setFile] = useState();
+  const access_token = getCookie("access_token");
 
   function success(pos) {
     setCenter({
@@ -55,16 +57,47 @@ export default function ProfilePage({ params }) {
     setEditable(params.id === getCookie("user_id"));
   }, [params.id]);
 
+  const [formData, setFormData] = useState(new FormData());
+  const handleInputChange = (e) => {
+    const { name, files } = e.target;
+    if (files.length > 0) {
+      formData.set(name, files[0]);
+      setFormData(formData);
+    }
+    console.log(formData);
+    axios
+      .put(`${process.env.NEXT_PUBLIC_API_DOMAIN}/users/picture`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .then((response) => {
+        console.log("檔案上傳成功:", response.data);
+        // mutate(
+        //   `${process.env.NEXT_PUBLIC_API_DOMAIN}/users/${params.id}/events?latitude=0&longitude=0`,
+        // );
+      })
+      .catch((errorPic) => {
+        console.log("檔案上傳失敗", errorPic);
+      });
+    // window.location.reload();
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 1000); // 2000 毫秒等于 2 秒
+    
+  };
+
   return (
     <div className={styles.page}>
-      {showModal && (
+      {/* {showModal && (
         <Modal
           userId={profile?.id}
           file={file}
           setFile={setFile}
           setShowModal={setShowModal}
         />
-      )}
+      )} */}
       <div className={styles.titleBar}>
         <Link href="/" className={styles.button}>
           <LeftArrow />
@@ -101,20 +134,23 @@ export default function ProfilePage({ params }) {
         }}
       />
       <div className={styles.imageWrapper}>
-        <Image
+        <img
           src={profile?.picture ?? "/profileIcon.png"}
-          fill
-          onClick={() => {
-            // trigger the file browser
-            inputRef.current?.click();
-            if (inputRef.current?.value) {
-              inputRef.current.value = "";
-            }
-            setShowModal(true);
-          }}
           className={styles.image}
+          alt="icon"
         />
       </div>
+      <label htmlFor="picInput">
+        編輯大頭貼
+        <input
+          id="picInput"
+          type="file"
+          name="picture"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={handleInputChange}
+        />
+      </label>
       <div className={styles.name}>{profile?.name}</div>
       {isEditing ? (
         <>

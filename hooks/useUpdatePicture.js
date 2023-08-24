@@ -8,6 +8,7 @@ async function updatePicture(blob) {
   const res = await fetch(`${apiDomain}/users/picture`, {
     method: "PUT",
     headers: {
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${getCookie("access_token")}`,
     },
     body: formData,

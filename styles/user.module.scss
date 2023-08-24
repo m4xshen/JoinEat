@@ -40,7 +40,10 @@
     flex-shrink: 0;
 
     .image {
+      width: 5rem;
+      height: 5rem;
       object-fit: cover;
+      // object-position: center;
     }
   }
 

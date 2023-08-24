@@ -20,15 +20,6 @@
   }
 }
 
-.blank {
-  position: absolute;
-  top: 30px;
-  right: 15px;
-  width: 30px;
-  height: 30px;
-  z-index: 999;
-}
-
 .dropDown {
   position: absolute;
   display: flex;
@@ -43,7 +34,12 @@
   box-shadow: 0 5px 10px 0px #b0b0b0;
 
   .link {
+    font-size: 17px;
     padding: 1rem 0 1rem 1rem;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    text-align: left;
   }
 
   :first-child {

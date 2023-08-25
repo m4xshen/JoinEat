@@ -25,6 +25,9 @@ export default function LaunchGroup({
   setOpenGroup,
 }) {
   const today = new Date();
+  const hr = today.getHours();
+  const formattedHr = hr.toString().padStart(2, "0");
+  console.log(formattedHr);
   const nowMintues = today.getMinutes();
   const access_token = getCookie("access_token");
   const isButtonDisable = true;
@@ -34,7 +37,7 @@ export default function LaunchGroup({
   const [year, setYear] = useState(nowYear);
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [date, setDate] = useState(today.getDate());
-  const [hour, setHour] = useState(today.getHours());
+  const [hour, setHour] = useState(formattedHr);
   const [minute, setMinute] = useState(roundUpToNearestMultipleOf5(nowMintues));
   const [people_limit, setPeopleLimit] = useState(2);
   const appointment_time = { year, month, date, hour, minute };

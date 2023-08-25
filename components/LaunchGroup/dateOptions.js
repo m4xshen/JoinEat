@@ -11,6 +11,9 @@ export const daysInMonth = (month) => {
 };
 export const nowYear = new Date().getFullYear();
 export function roundUpToNearestMultipleOf5(number) {
+  if (number >= 55 && number <= 60) {
+    return "00";
+  }
   const remainder = number % 5;
   const roundedNumber = remainder === 0 ? number : number + (5 - remainder);
   return roundedNumber < 10 ? `0${roundedNumber}` : `${roundedNumber}`;
